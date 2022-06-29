@@ -102,7 +102,7 @@ resource "aws_launch_template" "this" {
   }
 
   dynamic "iam_instance_profile" {
-    for_each = [var.iam_instance_profile]
+    for_each = var.iam_instance_profile != null ? [var.iam_instance_profile] : []
     content {
       name = lookup(var.iam_instance_profile, "name", null)
       arn  = lookup(var.iam_instance_profile, "arn", null)
