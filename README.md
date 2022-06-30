@@ -6,40 +6,23 @@ Terraform module with Launch Template resources on AWS.
 
 ```terraform
 module "launch_template" {
-  source                                 = "git::ssh://git@github.com/<repository>/terraform-aws-launch-template.git?ref=v1.0.0"
-  count                                  = var.is_create_launch_template ? 1 : 0
-  prefix                                 = var.prefix
-  environment                            = var.environment
-  name                                   = var.name
-  user_data                              = local.platform[var.platform].user_data
-  ebs_optimized                          = var.ebs_optimized
-  ami_id                                 = var.ami_id
-  key_name                               = var.key_name
-  vpc_security_group_ids                 = var.vpc_security_group_ids
-  launch_template_default_version        = var.launch_template_default_version
-  update_launch_template_default_version = var.update_launch_template_default_version
-  disable_api_termination                = var.disable_api_termination
-  kernel_id                              = var.kernel_id
-  ram_disk_id                            = var.ram_disk_id
-  block_device_mappings                  = var.block_device_mappings
-  capacity_reservation_specification     = var.capacity_reservation_specification
-  cpu_options                            = var.cpu_options
-  credit_specification                   = var.credit_specification
-  elastic_gpu_specifications             = var.elastic_gpu_specifications
-  elastic_inference_accelerator          = var.elastic_inference_accelerator
-  enclave_options                        = var.enclave_options
-  hibernation_options                    = var.hibernation_options
-  iam_instance_profile                   = var.iam_instance_profile
-  instance_market_options                = var.instance_market_options
-  license_specifications                 = var.license_specifications
-  metadata_options                       = var.metadata_options
-  enable_monitoring                      = var.enable_monitoring
-  network_interfaces                     = var.network_interfaces
-  placement                              = var.placement
-  launch_template_tags                   = var.launch_template_tags
-  tags                                   = var.tags
+  source      = "git::ssh://git@github.com/<repository>/terraform-aws-launch-template.git?ref=feat/launch-template"
+  prefix      = "example"
+  environment = "dev"
+  name        = "example"
+  #   user_data                              = var.user_data
+  block_device_mappings = [{
+    device_name = "/dev/sda1"
+    ebs = {
+      volume_size = 20
+      volume_type = "gp3"
+    }
+  }]
+  ami_id                    = "ami-0c802847a7dd848c0"
+  key_name                  = "example-key"
+  vpc_security_group_ids    = ["sg-xxx"]
+  tags = { workspace = "test-workspace" }
 }
-
 ```
 
 <!-- BEGIN_TF_DOCS -->
