@@ -6,7 +6,7 @@ Terraform module with Launch Template resources on AWS.
 
 ```terraform
 module "launch_template" {
-  source                                 = "../../../terraform-aws-launch-template"
+  source                                 = "git::ssh://git@github.com/<repository>/terraform-aws-launch-template.git?ref=v1.0.0"
   count                                  = var.is_create_launch_template ? 1 : 0
   prefix                                 = var.prefix
   environment                            = var.environment
