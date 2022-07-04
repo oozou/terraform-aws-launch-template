@@ -5,21 +5,18 @@ resource "aws_launch_template" "this" {
   ebs_optimized = var.ebs_optimized
   image_id      = var.ami_id
 
-  # # Set on node group instead
-  # instance_type = var.launch_template_instance_type
-  key_name  = var.key_name
-  user_data = var.user_data
+  instance_type = var.instance_type
+  key_name      = var.key_name
+  user_data     = var.user_data
 
   vpc_security_group_ids = var.vpc_security_group_ids
 
-  default_version         = var.launch_template_default_version
-  update_default_version  = var.update_launch_template_default_version
-  disable_api_termination = var.disable_api_termination
-  # Set on EKS managed node group, will fail if set here
-  # https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html#launch-template-basics
-  # instance_initiated_shutdown_behavior = var.instance_initiated_shutdown_behavior
-  kernel_id   = var.kernel_id
-  ram_disk_id = var.ram_disk_id
+  default_version                      = var.launch_template_default_version
+  update_default_version               = var.update_launch_template_default_version
+  disable_api_termination              = var.disable_api_termination
+  instance_initiated_shutdown_behavior = var.instance_initiated_shutdown_behavior
+  kernel_id                            = var.kernel_id
+  ram_disk_id                          = var.ram_disk_id
 
   dynamic "block_device_mappings" {
     for_each = var.block_device_mappings
@@ -168,9 +165,7 @@ resource "aws_launch_template" "this" {
       network_interface_id         = lookup(network_interfaces.value, "network_interface_id", null)
       private_ip_address           = lookup(network_interfaces.value, "private_ip_address", null)
       security_groups              = compact(concat(try(network_interfaces.value.security_groups, []), local.security_group_ids))
-      # Set on EKS managed node group, will fail if set here
-      # https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html#launch-template-basics
-      # subnet_id                  = lookup(network_interfaces.value, "subnet_id", null)
+      subnet_id                    = lookup(network_interfaces.value, "subnet_id", null)
     }
   }
 
@@ -198,9 +193,6 @@ resource "aws_launch_template" "this" {
   lifecycle {
     create_before_destroy = true
   }
-
-  # Prevent premature access of security group roles and policies by pods that
-  # require permissions on create/destroy that depend on nodes
 
   tags = var.tags
 }

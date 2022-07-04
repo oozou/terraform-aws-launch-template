@@ -45,6 +45,12 @@ variable "ami_id" {
   default     = ""
 }
 
+variable "instance_type" {
+  description = "The type of the instance"
+  type        = string
+  default     = null
+}
+
 variable "key_name" {
   description = "The key name that should be used for the instance(s)"
   type        = string
@@ -73,6 +79,12 @@ variable "disable_api_termination" {
   description = "If true, enables EC2 instance termination protection"
   type        = bool
   default     = null
+}
+
+variable "instance_initiated_shutdown_behavior" {
+  description = "Shutdown behavior for the instance. Can be stop or terminate"
+  type        = string
+  default     = "stop"
 }
 
 variable "kernel_id" {
