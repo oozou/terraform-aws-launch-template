@@ -164,7 +164,7 @@ resource "aws_launch_template" "this" {
       ipv6_address_count           = lookup(network_interfaces.value, "ipv6_address_count", null)
       network_interface_id         = lookup(network_interfaces.value, "network_interface_id", null)
       private_ip_address           = lookup(network_interfaces.value, "private_ip_address", null)
-      security_groups              = compact(concat(try(network_interfaces.value.security_groups, []), local.security_group_ids))
+      security_groups              = lookup(network_interfaces.value, "security_groups", null)
       subnet_id                    = lookup(network_interfaces.value, "subnet_id", null)
     }
   }

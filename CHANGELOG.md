@@ -2,6 +2,12 @@
 
 All notable changes to this module will be documented in this file.
 
+## [1.0.3] - 2022-07-05
+
+### Fix
+
+- bug `security_group` for network interface
+
 ## [1.0.2] - 2022-07-04
 
 ### Fix
