@@ -14,7 +14,7 @@ resource "aws_launch_template" "this" {
   default_version                      = var.launch_template_default_version
   update_default_version               = var.update_launch_template_default_version
   disable_api_termination              = var.disable_api_termination
-  instance_initiated_shutdown_behavior = var.instance_initiated_shutdown_behavior
+  # instance_initiated_shutdown_behavior = var.instance_initiated_shutdown_behavior
   kernel_id                            = var.kernel_id
   ram_disk_id                          = var.ram_disk_id
 
