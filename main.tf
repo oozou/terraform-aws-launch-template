@@ -9,7 +9,7 @@ resource "aws_launch_template" "this" {
   key_name      = var.key_name
   user_data     = var.user_data
 
-  # vpc_security_group_ids = var.vpc_security_group_ids
+  vpc_security_group_ids = var.vpc_security_group_ids
 
   default_version                      = var.launch_template_default_version
   update_default_version               = var.update_launch_template_default_version
